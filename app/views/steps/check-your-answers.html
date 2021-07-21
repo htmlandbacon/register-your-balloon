@@ -1,0 +1,46 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+    Check your answers - Register your balloon - demo service
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+<div class="govuk-width-container">
+        {{ govukPhaseBanner({
+        tag: {
+            text: "DEMO"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+        }) }}
+</div>
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form method="post" action="/steps/check-your-answers" novalidate>
+        <h1 class="govuk-heading-l">Check your answers</h1>
+
+    <!-- 
+
+    Check your answers
+
+    Declaration
+
+    -->
+
+     {{ 
+         govukButton({
+            text: "Complete Registration"
+            })
+    }}
+     </form>
+    </div>
+  </div>
+
+{% endblock %}

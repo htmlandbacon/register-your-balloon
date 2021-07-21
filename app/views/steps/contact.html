@@ -1,0 +1,79 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+   What are your contact details? - Register your balloon - demo service
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+<div class="govuk-width-container">
+        {{ govukPhaseBanner({
+        tag: {
+            text: "DEMO"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+        }) }}
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form method="post" action="/steps/contact" novalidate>
+    <!-- 
+
+    replace with checkbox
+
+    Email
+        Enter email
+        Consent in details
+        Conent to contact
+    Phone
+
+    -->
+{% call govukFieldset({
+  legend: {
+    text: "What are your contact details?",
+    classes: "govuk-fieldset__legend--l",
+    isPageHeading: true
+  }
+}) %}
+
+  {{ govukInput({
+    label: {
+      text: "Phone"
+    },
+    classes: "govuk-!-width-two-thirds",
+    id: "contact-phone",
+    name: "contact-phone",
+    value: data['contact-phone'],
+    autocomplete: "phone"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Email"
+    },
+    classes: "govuk-!-width-two-thirds",
+    id: "contact-email",
+    value: data['contact-email'],
+    name: "contact-email"
+  }) }}
+
+{% endcall %}
+
+     {{ 
+         govukButton({
+            text: "Save and continue"
+            })
+    }}
+     </form>
+    </div>
+  </div>
+
+{% endblock %}

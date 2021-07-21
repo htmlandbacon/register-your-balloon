@@ -1,0 +1,82 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+    Your balloon details - Register your balloon - demo service
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+<div class="govuk-width-container">
+        {{ govukPhaseBanner({
+        tag: {
+            text: "DEMO"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+        }) }}
+</div>
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/steps/contact"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form method="post" action="/steps/balloon-details" novalidate>
+  <!-- add hint / add image of balloon -->
+
+<h1 class="govuk-heading-l">Your balloon details</h1>
+
+  {{ govukInput({
+    label: {
+      text: "Balloon reference number"
+    },
+    classes: "govuk-!-width-two-thirds",
+    id: "balloon-reference",
+    name: "balloon-reference",
+    value: data['balloon-reference']
+  }) }}
+
+
+  {{ govukInput({
+    label: {
+      text: "Type"
+    },
+    classes: "govuk-!-width-two-thirds",
+    id: "balloon-Type",
+    name: "balloon-Type",
+    value: data['balloon-Type']
+  }) }}
+
+    <!-- 
+
+    Add radio button
+
+    Do you want your letter sent to the same address?
+
+    Yes
+
+    No
+
+    When no, show new address fields
+
+    -->
+
+     {{ 
+         govukButton({
+            text: "Save and continue"
+            })
+    }}
+     </form>
+    </div>
+  </div>
+
+{% endblock %}
