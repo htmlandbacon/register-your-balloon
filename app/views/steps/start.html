@@ -1,0 +1,85 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+ Register your balloon - demo service
+{% endblock %}
+
+{% block header %}
+{{ super() }}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+<div class="govuk-width-container">
+        {{ govukPhaseBanner({
+        tag: {
+            text: "DEMO"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+        }) }}
+</div>
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Register your balloon
+      </h1>
+<p class="govuk-body">Use this service to:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>tell us about you</li>
+        <li>register your balloon</li>
+        <li>get a confirmation</li>
+      </ul>
+
+      <p class="govuk-body" id='register'>Registering takes around 5 minutes.</p>
+
+      {{ govukButton({
+        text: "Start now",
+        href: "/steps/about-you",
+        classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        isStartButton: true
+      }) }}
+
+
+
+    <h3 class="govuk-heading-m">Before you start</h2>
+
+      <p class="govuk-body">You can also register by post <a href="/steps/post">click here</a>.</p>
+
+      <p class="govuk-body">The online service is also available in <a href="steps/start?lang=cy">Welsh (Cymraeg)</a>.</p>
+
+      <p class="govuk-body">You cannot register for this service if you’re in the UK illegally.</p>
+    
+    
+    <h2 class="govuk-heading-m">Get help with your application</h2>
+
+        <ul class="govuk-list">
+            <li>Telephone: 020 7946 0101</li>
+            <li>Monday to Friday, 9am to 5pm (except public holidays)</li>
+        </ul>
+
+        {{ 
+            govukDetails({
+                summaryText: "Find out about call charges",
+                text: "The cost of calling a phone number depends on the digits it starts with, your phone provider and whether you use a landline or mobile."
+            })
+        }}
+    </div>
+    <aside class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m" id="related-nav-related_items">
+        Related content
+      </h2>
+
+        <nav role="navigation" class="gem-c-related-navigation__nav-section" aria-labelledby="register">
+            <ul class="govuk-list">
+                <li class="govuk-!-padding-bottom-3"><a class="govuk-link" href="https://en.wikipedia.org/wiki/Balloon">A history of balloons</a></li>
+                <li class="govuk-!-padding-bottom-3"><a class="govuk-link" href="https://en.wikipedia.org/wiki/List_of_balloon_uses">List of balloon uses</a></li>
+            </ul>
+        </nav>
+    </aside>
+  </div>
+
+{% endblock %}
