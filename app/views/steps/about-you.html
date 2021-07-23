@@ -2,7 +2,10 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
- About you - Register your balloon - demo service
+{% if validation %}
+Error: 
+{% endif %}
+Register your balloon - demo service
 {% endblock %}
 
 {% block header %}
@@ -27,15 +30,25 @@
 
 {% block content %}
 
+<!--
+{{ validation | dump }}
+-->
+
+{% if validation %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: validation.general
+}) }}
+{% endif %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <form method="post" action="/steps/about-you" novalidate>
     <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
                 About you
-            </h1>
         </legend>
 
       {{
@@ -48,7 +61,8 @@
         id: "firstName",
         name: "firstName",
         classes: "govuk-input--width-20",
-        value: data['firstName']
+        value: data['firstName'],
+        errorMessage: validation.firstName.errorMessage
         })
      }}
 
@@ -62,7 +76,8 @@
         id: "secondName",
         name: "secondName",
         classes: "govuk-input--width-20",
-        value: data['secondName']
+        value: data['secondName'],
+        errorMessage: validation.secondName.errorMessage
         })
      }}
      </fieldset>
