@@ -16,3 +16,42 @@ $govuk-assets-path: '/govuk/assets/';
 @import "patterns/related-items";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+
+
+.moj-add-another__item {
+    margin: 0;
+    margin-top: 30px;
+    padding: 0;
+    position: relative
+}
+
+.moj-add-another__item:first-of-type {
+    margin-top: 0
+}
+
+.moj-add-another__title {
+    float: left;
+    padding: 4px 0;
+    width: 100%
+}
+
+.moj-add-another__title+.govuk-form-group {
+    clear: left
+}
+
+.moj-add-another__remove-button {
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.moj-add-another__add-button {
+    display: block
+}
+
+.moj-add-another__heading:focus {
+    background-color: #fd0;
+    color: #0b0c0c;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    outline: none
+}

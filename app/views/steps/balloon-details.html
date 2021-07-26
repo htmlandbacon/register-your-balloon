@@ -2,6 +2,9 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
+  {% if validation %}
+  Error: 
+  {% endif %}
     Your balloon details - Register your balloon - demo service
 {% endblock %}
 
