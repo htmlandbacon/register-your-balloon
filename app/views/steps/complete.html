@@ -6,16 +6,8 @@
 {% endblock %}
 
 {% block header %}
-{{ super() }}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-<div class="govuk-width-container">
-        {{ govukPhaseBanner({
-        tag: {
-            text: "DEMO"
-        },
-        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-        }) }}
-</div>
+  {{ super() }}
+  {% include "includes/phase.html" %}
 {% endblock %}
 
 {% block content %}
@@ -24,8 +16,8 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
      {{ govukPanel({
-        titleText: "Application complete",
-        html: "Your reference number<br><strong>HDJ2123F</strong>"
+        titleText: "APPLICATION COMPLETE",
+        html: "YOUR REFERENCE NUMBER IS<br><strong>HDJ2123F</strong>"
       }) }}
 
       <p class="govuk-body">We have sent you a confirmation email.</p>
@@ -33,10 +25,14 @@
       <h2 class="govuk-heading-m">What happens next</h2>
 
       <p class="govuk-body">
-        We’ve sent your application to Hackney Electoral Register Office.
+        We’ve sent your application to CBT Office.
       </p>
       <p class="govuk-body">
         They will contact you either to confirm your registration, or to ask for more information.
+      </p>
+
+      <p class="govuk-body">
+        If you need to register another balloon you can do so <a href="/steps/start" class="govuk-link">here</a>.
       </p>
 
       <p class="govuk-body">

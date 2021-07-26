@@ -1,8 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const { checkForNames, checkForAddess } = require('./validation')
+const { checkForNames, checkForAddess, checkForBalloon } = require('./validation')
 // Add your routes here - above the module.exports line
 
+
+router.post('/steps/balloon-details', (req, res) => {
+    const validation = checkForBalloon (req);
+    if (Object.keys(validation).length > 1) {
+        res.render('steps/balloon-details.html', { validation })
+    } else {
+        res.redirect('/steps/balloon-more');
+    }
+});
 
 router.post('/steps/about-you', (req, res) => {
     const validation = checkForNames (req);

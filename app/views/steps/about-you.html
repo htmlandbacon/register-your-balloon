@@ -9,16 +9,8 @@ Register your balloon - demo service
 {% endblock %}
 
 {% block header %}
-{{ super() }}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-<div class="govuk-width-container">
-        {{ govukPhaseBanner({
-        tag: {
-            text: "DEMO"
-        },
-        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-        }) }}
-</div>
+  {{ super() }}
+  {% include "includes/phase.html" %}
 {% endblock %}
 
 {% block beforeContent %}
@@ -30,18 +22,7 @@ Register your balloon - demo service
 
 {% block content %}
 
-<!--
-{{ validation | dump }}
--->
-
-{% if validation %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-
-{{ govukErrorSummary({
-  titleText: "There is a problem",
-  errorList: validation.general
-}) }}
-{% endif %}
+{% include "includes/validation.html" %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

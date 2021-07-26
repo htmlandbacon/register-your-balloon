@@ -6,16 +6,8 @@
 {% endblock %}
 
 {% block header %}
-{{ super() }}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-<div class="govuk-width-container">
-        {{ govukPhaseBanner({
-        tag: {
-            text: "DEMO"
-        },
-        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-        }) }}
-</div>
+  {{ super() }}
+  {% include "includes/phase.html" %}
 {% endblock %}
 
 

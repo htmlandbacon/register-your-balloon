@@ -6,16 +6,8 @@
 {% endblock %}
 
 {% block header %}
-{{ super() }}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-<div class="govuk-width-container">
-        {{ govukPhaseBanner({
-        tag: {
-            text: "DEMO"
-        },
-        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-        }) }}
-</div>
+  {{ super() }}
+  {% include "includes/phase.html" %}
 {% endblock %}
 
 {% block beforeContent %}
@@ -27,18 +19,27 @@
 
 {% block content %}
 
+{% include "includes/validation.html" %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <form method="post" action="/steps/balloon-details" novalidate>
-  <!-- add hint / add image of balloon -->
 
 <h1 class="govuk-heading-l">Your balloon details</h1>
+
+  <img src="/public/images/ballooon.png" class="govuk-!-width-one-third" alt="example" />
 
   {{ govukInput({
     label: {
       text: "Balloon reference number"
     },
+    hint: {
+      text: "You can find this on your balloon it starts with 95",
+      attributes: {
+        style: "color: 	#e8e8e7;"
+      }
+    },
+    errorMessage: validation['balloon-reference'].errorMessage,
     classes: "govuk-!-width-two-thirds",
     id: "balloon-reference",
     name: "balloon-reference",
@@ -46,29 +47,34 @@
   }) }}
 
 
-  {{ govukInput({
-    label: {
-      text: "Type"
+{{ govukSelect({
+  id: "balloonType",
+  name: "balloonType",
+  label: {
+    text: "Type"
+  },
+  items: [
+    {
+      value: "",
+      text: ""
     },
-    classes: "govuk-!-width-two-thirds",
-    id: "balloon-Type",
-    name: "balloon-Type",
-    value: data['balloon-Type']
-  }) }}
-
-    <!-- 
-
-    Add radio button
-
-    Do you want your letter sent to the same address?
-
-    Yes
-
-    No
-
-    When no, show new address fields
-
-    -->
+    {
+      value: "soft__0001",
+      text: "Soft",
+      selected: checked("balloonType", "soft__0001")
+    },
+    {
+      value: "medium_0002",
+      text: "Medium",
+      selected: checked("balloonType", "medium_0002")
+    },
+    {
+      value: "child_0003",
+      text:  "Child",
+      selected: checked("balloonType", "child_0003")
+    }
+  ]
+}) }}
 
      {{ 
          govukButton({

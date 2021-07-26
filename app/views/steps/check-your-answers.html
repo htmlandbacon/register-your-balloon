@@ -6,16 +6,8 @@
 {% endblock %}
 
 {% block header %}
-{{ super() }}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-<div class="govuk-width-container">
-        {{ govukPhaseBanner({
-        tag: {
-            text: "DEMO"
-        },
-        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-        }) }}
-</div>
+  {{ super() }}
+  {% include "includes/phase.html" %}
 {% endblock %}
 
 {% block content %}
@@ -26,13 +18,122 @@
     <form method="post" action="/steps/check-your-answers" novalidate>
         <h1 class="govuk-heading-l">Check your answers</h1>
 
-    <!-- 
+    <h2 class="govuk-heading-m">Personal details</h2>
 
-    Check your answers
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: data['firstName'] + ' ' +  data['secondName']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/steps/about-you",
+                  text: "Change",
+                  visuallyHiddenText: ""
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: 'Address'
+            },
+            value: {
+              html: data['address-line-1'] + '<br /> ' + (data['address-line-2'] + '<br />' if data['address-line-2'] else '') + data['address-town'] + '<br /> ' + data['address-county']+ '<br /> ' + data['address-postcode']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/steps/address",
+                  text: "Change",
+                  visuallyHiddenText: " your address"
+                }
+              ]
+            }
+          }
+        ]
+      })
 
-    Declaration
+      }}
 
-    -->
+          <h2 class="govuk-heading-m">Balloon details</h2>
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: [
+          {
+            key: {
+              text: "Balloon reference"
+            },
+            value: {
+              text: data['balloon-reference']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/steps/balloon-details",
+                  text: "Change",
+                  visuallyHiddenText: "your balloon"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: 'Balloon Type'
+            },
+            value: {
+              html: data['balloonType']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/steps/balloon-details",
+                  text: "Change",
+                  visuallyHiddenText: "your balloon type"
+                }
+              ]
+            }
+          }
+        ]
+      })
+
+      }}
+
+
+      <h1 class="govuk-heading-l">Declaration</h1>
+      <p class="govuk-body">
+        By sending the application you agree that the information you've given is complete and correct.
+      </p>
+      <p class="govuk-body">
+        If you deliberately give the wrong or incomplete information, or you do not report any changes, you may:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>be prosecuted</li>
+        <li>need to pay a financial penalty</li>
+        <li>need to pay back any money you're overpaid if you're asked to</li>
+      </ul>
+
+      <p class="govuk-body govuk-!-font-weight-bold">
+        I have read and understand this Declaration
+      </p>
+
+      {{ govukCheckboxes({
+        idPrefix: "declaration",
+        name: "declaration",
+        items: [
+          {
+            value: "agree",
+            text: "I agree"
+          }
+        ]
+      }) }}
 
      {{ 
          govukButton({

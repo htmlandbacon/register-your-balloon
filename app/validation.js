@@ -6,6 +6,44 @@ return {
     }
 }
 
+function checkForBalloon(req) {
+    const errors = {general: []};
+    if (req.body['balloon-reference'] === '') {
+        errors['balloon-reference'] = makeError('Enter your balloon reference number');
+        errors.general.push(
+            {
+                text: 'Enter your balloon reference number',
+                href: "#balloon-reference"
+            }
+        )
+    } else if (req.body['balloon-reference'].length > 14) {
+        errors['balloon-reference'] = makeError('Your balloon reference has too many charcaters');
+        errors.general.push(
+            {
+                text: 'Your balloon reference has too many charcaters',
+                href: "#balloon-reference"
+            }
+        )
+    }  else if (req.body['balloon-reference'].indexOf(' ') !== -1) {
+        errors['balloon-reference'] = makeError('Your balloon reference number can\'t contain spaces');
+        errors.general.push(
+            {
+                text: 'Your balloon refference number can\'t contain spaces',
+                href: "#balloon-reference"
+            }
+        )
+    }  else if (!req.body['balloon-reference'].startsWith('95')) {
+        errors['balloon-reference'] = makeError('Your balloon reference number must start with 95');
+        errors.general.push(
+            {
+                text: 'Your balloon reference number must start with 95',
+                href: "#balloon-reference"
+            }
+        )
+    }   
+    return errors;
+}
+
 function checkForNames(req) {
     const errors = {general: []};
     if (req.body.firstName === '') {
@@ -83,4 +121,5 @@ function checkForAddess(req) {
 module.exports = {
     checkForNames,
     checkForAddess,
+    checkForBalloon,
 }
