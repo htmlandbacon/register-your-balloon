@@ -47,12 +47,13 @@
     id: "address-line-1",
     name: "address-line-1",
     value: data['address-line-1'],
+    errorMessage: validation['address-line-1'].errorMessage,
     autocomplete: "address-line1"
   }) }}
 
   {{ govukInput({
     label: {
-      html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
+      html: '<span class="govuk-visually-hidden">line 2 of 2</span>'
     },
     id: "address-line-2",
     name: "address-line-2",
@@ -68,6 +69,7 @@
     id: "address-town",
     name: "address-town",
     value: data['address-town'],
+    errorMessage: validation['address-town'].errorMessage,
     autocomplete: "address-level2"
   }) }}
 
@@ -78,6 +80,7 @@
     classes: "govuk-!-width-two-thirds",
     id: "address-county",
     value: data['address-county'],
+    errorMessage: validation['address-county'].errorMessage,
     name: "address-county"
   }) }}
 
@@ -89,6 +92,7 @@
     id: "address-postcode",
     name: "address-postcode",
     value: data['address-postcode'],
+    errorMessage: validation['address-postcode'].errorMessage,
     autocomplete: "postal-code"
   }) }}
 
@@ -107,6 +111,95 @@
     When no, show new address fields
 
     -->
+
+{% set addressHtml %}
+{% call govukFieldset({
+  legend: {
+    text: "What is your address that you want letters sent to?",
+    classes: "govuk-fieldset__legend--l",
+    isPageHeading: true
+  }
+}) %}
+
+  {{ govukInput({
+    label: {
+      html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
+    },
+    id: "address-line-1-letters",
+    name: "address-line-1-letters",
+    value: data['address-line-1-letters'],
+    autocomplete: "address-line1"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
+    },
+    id: "address-line-2-letters",
+    name: "address-line-2-letters",
+    value: data['address-line-2-letters'],
+    autocomplete: "address-line2"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Town or city"
+    },
+    classes: "govuk-!-width-two-thirds",
+    id: "address-town-letters",
+    name: "address-town-letters",
+    value: data['address-town-letters'],
+    autocomplete: "address-level2"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "County"
+    },
+    classes: "govuk-!-width-two-thirds",
+    id: "address-county-letters",
+    name: "address-county-letters",
+    value: data['address-county-letters']
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Postcode"
+    },
+    classes: "govuk-input--width-10",
+    id: "address-postcode-letters",
+    name: "address-postcode-letters",
+    value: data['address-postcode-letters'],
+    autocomplete: "postal-code"
+  }) }}
+  {% endcall %}
+{% endset %}
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  name: "letters-address",
+  fieldset: {
+    legend: {
+      text: "Do you want letters sent to a different address?"
+    }
+  },
+  errorMessage: validation['letters-address'].errorMessage,
+  items: [
+    {
+      value: "yes",
+      text: "Yes",
+      conditional: {
+        html: addressHtml
+      },
+      checked: true if data['letters-address'] === 'yes' else null
+    },
+    {
+      value: "no",
+      text: "No",
+      checked: true if data['letters-address'] === 'no' else null
+    }
+  ]
+}) }}
 
      {{ 
          govukButton({
