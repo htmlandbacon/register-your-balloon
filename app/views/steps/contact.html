@@ -25,25 +25,8 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <form method="post" action="/steps/contact" novalidate>
-    <!-- 
 
-    replace with checkbox
-
-    Email
-        Enter email
-        Consent in details
-        Conent to contact
-    Phone
-
-    -->
-{% call govukFieldset({
-  legend: {
-    text: "What are your contact details?",
-    classes: "govuk-fieldset__legend--l",
-    isPageHeading: true
-  }
-}) %}
-
+{% set phoneHTML %}
   {{ govukInput({
     label: {
       text: "Phone"
@@ -54,18 +37,74 @@
     value: data['contact-phone'],
     autocomplete: "phone"
   }) }}
+{% endset %}
 
+{% set emailHTML %}
   {{ govukInput({
     label: {
       text: "Email"
     },
     classes: "govuk-!-width-two-thirds",
     id: "contact-email",
-    value: data['contact-email'],
-    name: "contact-email"
+    name: "contact-email",
+    value: data['contact-email']
   }) }}
 
-{% endcall %}
+<div class="govuk-form-group">
+{{ govukDetails({
+  summaryText: "Email terms",
+  html: '<p class="govuk-body">Department for Work and Pensions (DWP) cannot guarantee external emails against:</p><ul class="govuk-list govuk-list--bullet"><li>loss or non-delivery</li><li>theft by third parties</li><li>manipulation of data</li></ul><p class="govuk-body">Asking DWP to use email to get in touch with you in this application means you understand this risk. If you have any concerns then do not include your email address.</p>'
+}) }}
+</div>
+
+{{ govukCheckboxes({
+  idPrefix: "acceptEmailTerms",
+  name: "acceptEmailTerms",
+  items: [
+    {
+      value: "agree",
+      text: "I agree to the email terms",
+      checked:  checked("acceptEmailTerms", "agree")
+    }
+  ]
+}) }}
+
+{% endset %}
+
+
+
+{{ govukCheckboxes({
+  idPrefix: "contact",
+  name: "contact",
+  fieldset: {
+    legend: {
+      text: "What are your contact details?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  errorMessage: validation[contact].errorMessage,
+  items: [
+    {
+      value: "phone",
+      text: "Phone",
+      checked:  checked("contact", "phone"),
+      conditional: {
+        html: phoneHTML
+      }
+    },
+    {
+      value: "email",
+      text: "Email",
+      checked: checked("contact", "email"),
+      conditional: {
+        html: emailHTML
+      }
+    }
+  ]
+}) }}
+
+
 
      {{ 
          govukButton({
