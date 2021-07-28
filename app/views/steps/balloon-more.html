@@ -122,10 +122,13 @@
 
   <form method="post">
 
-
-{% for index in data['person'] %}
-    {{ repeatingSelection(loop.index0, data, true if data['person'][1]['first_name']) }}   
-{% endfor %}
+{% if not data['person'] %}
+      {{ repeatingSelection(0, data) }}   
+{% else %}
+  {% for index in data['person'] %}
+      {{ repeatingSelection(loop.index0, data, true if data['person'][1]['first_name']) }}   
+  {% endfor %}
+{% endif %}
 
 
     <div class="moj-button-action">
