@@ -299,7 +299,11 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   console.error(err.message)
   res.status(err.status || 500)
-  res.send(err.message)
+  if (err.status === 404) {
+    res.render('steps/error-404.html');
+  } else {
+    res.send(err.message)
+  }
 })
 
 console.log('\nGOV.UK Prototype Kit v' + releaseVersion)

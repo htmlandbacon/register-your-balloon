@@ -1,0 +1,43 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+    What are your contact details? - Register your balloon - demo service
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% include "includes/phase.html" %}
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Feedback
+      </h1>
+        <p class="govuk-body">You can give us mroe feedback <a href="feedback@no-one-is-here.co.uk">here</a>.</p>
+
+      {{ govukButton({
+        text: "Start Again",
+        href: "/steps/start",
+        classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        isStartButton: true
+      }) }}
+    </div>
+    <aside class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m" id="related-nav-related_items">
+        Related content
+      </h2>
+
+        <nav role="navigation" class="gem-c-related-navigation__nav-section" aria-labelledby="register">
+            <ul class="govuk-list">
+                <li class="govuk-!-padding-bottom-3"><a class="govuk-link" href="https://en.wikipedia.org/wiki/Balloon">More</a></li>
+            </ul>
+        </nav>
+    </aside>
+  </div>
+
+{% endblock %}
