@@ -6,6 +6,39 @@ return {
     }
 }
 
+function checkBalloonMore(req) {
+    const errors = {general: []}; 
+    let item = 0;
+    req.body.person.forEach(person => {
+        if (person['first_name'] === '') {
+            if (errors['first_name'] === undefined) {
+                errors['first_name'] = [];
+            }
+                errors['first_name'][item] = makeError('Enter your first name');
+                errors.general.push(
+                    {
+                        text: 'Enter your first name',
+                        href: "#person[" + item + "][first_name]"
+                    }
+                )
+            }
+            if (person['last_name'] === '') {
+                if (errors['last_name'] === undefined) {
+                    errors['last_name'] = [];
+                }
+                    errors['last_name'][item] = makeError('Enter your last name');
+                    errors.general.push(
+                        {
+                            text: 'Enter your last name',
+                            href: "#person[" + item + "][last_name]"
+                        }
+                    )
+                }
+            item ++;
+        });
+    return errors;
+}
+
 function checkForBalloon(req) {
     const errors = {general: []};
     if (req.body['balloon-reference'] === '') {
@@ -122,4 +155,5 @@ module.exports = {
     checkForNames,
     checkForAddess,
     checkForBalloon,
+    checkBalloonMore,
 }
