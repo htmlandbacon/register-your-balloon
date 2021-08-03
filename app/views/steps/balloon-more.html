@@ -134,7 +134,7 @@
       {{ repeatingSelection(0, data, false, validation) }}   
 {% else %}
   {% for index in data['person'] %}
-      {{ repeatingSelection(loop.index0, data, true if data['person'][1]['first_name'], validation) }}   
+      {{ repeatingSelection(loop.index0, data, true if (data['person'][1]['first_name'] === "" or data['person'][1]['first_name']), validation) }}   
   {% endfor %}
 {% endif %}
     <div class="moj-button-action">
