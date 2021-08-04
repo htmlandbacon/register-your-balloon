@@ -63,6 +63,82 @@ Register your balloon - demo service
      }}
      </fieldset>
 
+
+<p class="govuk-heading-m">
+      Have you changed your name?
+</p>
+
+{{ govukRadios({
+  classes: "govuk-radios--inline",
+  idPrefix: "changed-name",
+  name: "changed-name",
+  hint: {
+    html: "This includes changing your:
+    
+    <ul class='govuk-list govuk-list--bullet govuk-hint'>
+     <li>first name</li>
+     <li>last name</li>
+     <li>spelling your name differently</li>
+     <li>change of name due to marriage</li>
+     <li>change of name by deed poll</li>
+    </ul>
+    
+    Fnd out more about <a class='govuk-link' href='https://www.gov.uk/change-name-deed-poll'>Change your name by deed poll</a>.
+    "
+  },
+  errorMessage: validation['changed-name'].errorMessage,
+  items: [
+    {
+      value: "yes",
+      text: "Yes",
+      checked: true if data['changed-name'] === 'yes' else null
+    },
+    {
+      value: "no",
+      text: "No",
+      checked: true if data['changed-name'] === 'no' else null
+    }
+  ]
+}) }}
+
+
+<p class="govuk-heading-m">
+      What is your date of birth?
+</p>
+
+
+{{ govukDateInput({
+  id: "dob",
+  namePrefix: "dob",
+  hint: {
+    text: "For example, 31 3 1980"
+  },
+  items: [
+    {
+      name: "day",
+      classes: "govuk-input--width-2",
+      autocomplete: "bday-day",
+      value: data['dob-day']
+    },
+    {
+      name: "month",
+      classes: "govuk-input--width-2",
+      autocomplete: "bday-month",
+      value: data['dob-month']
+    },
+    {
+      name: "year",
+      classes: "govuk-input--width-4",
+      autocomplete: "bday-year",
+      value: data['dob-year']
+    }
+  ]
+}) }}
+
+
+
+
+
      {{ 
          govukButton({
             text: "Save and continue"

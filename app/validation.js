@@ -97,6 +97,15 @@ function checkForNames(req) {
             }
         )
     }
+    if (req.body['changed-name'] !== 'yes' && req.body['changed-name'] !== 'no') {
+        errors['changed-name'] = makeError('Select an answer');
+        errors.general.push(
+            {
+                text: 'Select an answer',
+                href: "#changed-name"
+            }
+        )
+    }
     return errors;
 }
 
